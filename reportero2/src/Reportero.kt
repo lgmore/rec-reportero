@@ -9,23 +9,38 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.SchemaUtils.create
 import org.jetbrains.exposed.sql.SchemaUtils.drop
 
-object Users : Table() {
-    val id = varchar("id", 10).primaryKey() // Column<String>
-    val name = varchar("name", length = 50) // Column<String>
-    val cityId = (integer("city_id") references Cities.id).nullable() // Column<Int?>
-}
+object Personal: Table() {
+    val nrodoc = varchar("nrodoc", 15).primaryKey()
+    val nombres = varchar("nombres", 40)
+    val apellidos = varchar("apellidos", 40)
+    val estcivil = varchar("estcivil", 1)
+    val fechanac = date("fechanac")
+    val telefpart = varchar("telefpart", 12)
+    val sexo = varchar("sexo", 1)
+    val codarea = varchar("codarea", 10)
+    val direccion = varchar("direccion", 40)
+    val nacionalidad = varchar("nacionalidad", 3)
+    val tiporemuneracion = varchar("tiporemuneracion", 1)
+    val estado = varchar("estado", 1)
+    val fecingreso = datetime("fecingreso")
+    val fecsalida = datetime("fecsalida")
+    val codareaseg = varchar("codareaseg", 10)
+    val control = varchar("control", 1)
 
-object Cities : Table() {
-    val id = integer("id").autoIncrement().primaryKey() // Column<Int>
-    val name = varchar("name", 50) // Column<String>
+    val cod_marcacion = integer("cod_marcacion")
+    val rubro = varchar("rubro", 1)
 }
 
 
 fun main(args: Array<String>) {
     val connect = Database.connect("jdbc:postgresql://sbd2.rec.una.py:5432/rh_rec", driver = "org.postgresql.Driver",user="lmore",password="info1042")
 
-/*    transaction {
-        create (Cities, Users)
+    transaction {
+        for (personal in Personal.selectAll()) {
+            println("${personal[Personal.nrodoc]}: ${personal[Personal.apellidos]}, ${personal[Personal.nombres]}")
+        }
+
+        /*create (Cities, Users)
 
         val saintPetersburgId = Cities.insert {
             it[name] = "St. Petersburg"
@@ -116,5 +131,5 @@ fun main(args: Array<String>) {
 
         drop (Users, Cities)
 
-    }*/
+    }
 }
