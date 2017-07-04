@@ -22,9 +22,9 @@ object Cities : Table() {
 
 
 fun main(args: Array<String>) {
-    val connect = Database.connect("jdbc:postgresql://127.0.0.1:5432/kotlin", driver = "org.postgresql.Driver",user="postgres",password="luigi3626419")
+    val connect = Database.connect("jdbc:postgresql://sbd2.rec.una.py:5432/rh_rec", driver = "org.postgresql.Driver",user="lmore",password="info1042")
 
-    transaction {
+/*    transaction {
         create (Cities, Users)
 
         val saintPetersburgId = Cities.insert {
@@ -116,5 +116,5 @@ fun main(args: Array<String>) {
 
         drop (Users, Cities)
 
-    }
+    }*/
 }
