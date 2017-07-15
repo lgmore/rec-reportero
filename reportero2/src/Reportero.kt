@@ -9,7 +9,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.SchemaUtils.create
 import org.jetbrains.exposed.sql.SchemaUtils.drop
 
-object Personal: Table() {
+object Rh_Personal: Table() {
     val nrodoc = varchar("nrodoc", 15).primaryKey()
     val nombres = varchar("nombres", 40)
     val apellidos = varchar("apellidos", 40)
@@ -36,9 +36,11 @@ fun main(args: Array<String>) {
     val connect = Database.connect("jdbc:postgresql://sbd2.rec.una.py:5432/rh_rec", driver = "org.postgresql.Driver",user="lmore",password="info1042")
 
     transaction {
-        for (personal in Personal.selectAll()) {
-            println("${personal[Personal.nrodoc]}: ${personal[Personal.apellidos]}, ${personal[Personal.nombres]}")
+        for (personal in Rh_Personal.selectAll()) {
+            //println("${personal[Personal.nrodoc]}: ${personal[Personal.apellidos]}, ${personal[Personal.nombres]}")
+            println("${personal[Rh_Personal.nrodoc]}:")
         }
+    }
 
         /*create (Cities, Users)
 
@@ -131,5 +133,5 @@ fun main(args: Array<String>) {
 
         drop (Users, Cities)
 
-    }
+    }*/
 }
