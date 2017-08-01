@@ -28,7 +28,7 @@ public class Reporte {
         HashMap map = new HashMap();
         map.put("cedula", userid);
         
-        File archivo = new File("/home/informatica/NetBeansProjects/Reporte/src/reporte/reporte1.jasper");
+        File archivo = new File("/home/informatica/Documentos/rec-reportero/Reporte/src/reporte/reporte1.jasper");
         
         JasperReport reporte = (JasperReport) JRLoader.loadObject(archivo);
         JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, map, conexion);
@@ -38,6 +38,26 @@ public class Reporte {
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
         exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("reportePDF.pdf"));
         exporter.exportReport();
+        /*
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, baos);
+        DataSource aAttachment =  new ByteArrayDataSource(baos.toByteArray(), "application/pdf");
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setTo("xxxxxx");
+
+        helper.setFrom("xxxxx");
+        helper.setSubject("Testing Email");
+
+        String text = "Testing Email";
+
+        helper.setText(text, false);
+
+        helper.addAttachment("report.pdf",aAttachment);
+
+        mailSender.send(message);*/
     }
     
 }
